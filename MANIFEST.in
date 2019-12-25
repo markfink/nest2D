@@ -1,0 +1,5 @@
+include README.md LICENSE
+global-include CMakeLists.txt *.cmake
+recursive-include src *
+recursive-include lib/pybind11/include *.h
+recursive-include lib/libnest2d/include *.h

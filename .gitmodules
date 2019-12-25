@@ -1,0 +1,6 @@
+[submodule "lib/pybind11"]
+	path = lib/pybind11
+	url = https://github.com/pybind/pybind11.git
+[submodule "lib/libnest2d"]
+	path = lib/libnest2d
+	url = https://github.com/tamasmeszaros/libnest2d.git
