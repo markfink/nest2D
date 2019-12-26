@@ -57,4 +57,10 @@ PYBIND11_MODULE(nest2d, m)
         )
         ;
 
+    // The nest function takes two parameters input and box
+    // see lib/libnest2d/include/libnest2d/libnest2d.hpp
+    m.def("nest", py::overload_cast<std::vector<Item>&, const Box&>(&libnest2d::nest)
+        )
+        ;
+
 }
