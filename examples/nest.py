@@ -19,9 +19,8 @@ def main():
     input = [i1] * 2
 
     bins = nest(input, box)
-    print(dir(bins))
+    print(nest.__doc__)
     print(f"repr: {repr(bins)}")
-    print(bins.__doc__)
 
 
 if __name__ == '__main__':

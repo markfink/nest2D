@@ -3,17 +3,12 @@
 
 #include <libnest2d/libnest2d.hpp>
 
-
-int add(int i, int j) {
-    return i + j;
-}
-
-
 namespace py = pybind11;
 
 using Point = libnest2d::Point;
 using Box = libnest2d::Box;
 using Item = libnest2d::Item;
+
 
 PYBIND11_MODULE(nest2d, m)
 {
@@ -40,6 +35,7 @@ PYBIND11_MODULE(nest2d, m)
         );
 
     // see lib/libnest2d/include/libnest2d/geometry_traits.hpp
+    // TODO center
     py::class_<Box>(m, "Box", "2D Box point pair")
         .def(py::init<int, int>())
         ;
@@ -59,7 +55,12 @@ PYBIND11_MODULE(nest2d, m)
 
     // The nest function takes two parameters input and box
     // see lib/libnest2d/include/libnest2d/libnest2d.hpp
-    m.def("nest", py::overload_cast<std::vector<Item>&, const Box&>(&libnest2d::nest)
+    m.def("nest", [](std::vector<Item> input, const Box& box) {
+            return libnest2d::nest(input, box);
+        },
+        py::arg("input"),
+        py::arg("box"),
+        "Nest the input items into the box bin."
         )
         ;
 
