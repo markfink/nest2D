@@ -13,8 +13,7 @@ using Point = libnest2d::Point;
 using Box = libnest2d::Box;
 using Item = libnest2d::Item;
 using PackGroup = libnest2d::PackGroup;
-
-//using SVGWriter = libnest2d::svg::SVGWriter<PolygonImpl>;
+using SVGWriter = libnest2d::svg::SVGWriter<libnest2d::PolygonImpl>;
 
 PYBIND11_MODULE(nest2d, m)
 {
@@ -82,5 +81,24 @@ PYBIND11_MODULE(nest2d, m)
         "Nest and pack the input items into the box bin."
         )
         ;
+
+    py::class_<SVGWriter>(m, "SVGWriter", "SVGWriter")
+        .def(py::init([]() {
+            SVGWriter::Config conf;
+            conf.mm_in_coord_units = libnest2d::mm();
+            return SVGWriter(conf);
+        }))
+        //.def_property_readonly("x", &Point::X) // TODO
+        //.def_property_readonly("y", &Point::Y)
+        .def("__repr__",
+             [](const Point &p) {
+                 std::string r("SVGWriter(");
+                 //r += boost::lexical_cast<std::string>(p.X);
+                 //r += ", ";
+                 //r += boost::lexical_cast<std::string>(p.Y);
+                 r += ")";
+                 return r;
+             }
+        );
 
 }
