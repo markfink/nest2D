@@ -3,12 +3,18 @@
 
 #include <libnest2d/libnest2d.hpp>
 
+#include "../tools/printer_parts.hpp"
+#include "../tools/svgtools.hpp"
+
+
 namespace py = pybind11;
 
 using Point = libnest2d::Point;
 using Box = libnest2d::Box;
 using Item = libnest2d::Item;
+using PackGroup = libnest2d::PackGroup;
 
+//using SVGWriter = libnest2d::svg::SVGWriter<PolygonImpl>;
 
 PYBIND11_MODULE(nest2d, m)
 {
@@ -46,8 +52,13 @@ PYBIND11_MODULE(nest2d, m)
         .def(py::init<std::vector<Point>>())
         .def("__repr__",
              [](const Item &i) {
-                 std::string r("Item area: ");
+                 std::string r("Item(area: ");
                  r += boost::lexical_cast<std::string>(i.area());
+                 r += ", bin_id: ";
+                 r += boost::lexical_cast<std::string>(i.binId());
+                 r += ", vertices: ";
+                 r += boost::lexical_cast<std::string>(i.vertexCount());
+                 r += ")";
                  return r;
              }
         )
@@ -56,11 +67,19 @@ PYBIND11_MODULE(nest2d, m)
     // The nest function takes two parameters input and box
     // see lib/libnest2d/include/libnest2d/libnest2d.hpp
     m.def("nest", [](std::vector<Item> input, const Box& box) {
-            return libnest2d::nest(input, box);
+            size_t bins = libnest2d::nest(input, box);
+
+            PackGroup pgrp(bins);
+
+            for (Item &itm : input) {
+                if (itm.binId() >= 0) pgrp[size_t(itm.binId())].emplace_back(itm);
+            }
+
+            return pgrp;
         },
         py::arg("input"),
         py::arg("box"),
-        "Nest the input items into the box bin."
+        "Nest and pack the input items into the box bin."
         )
         ;
 
