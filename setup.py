@@ -68,7 +68,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='nest2D',
-    version='0.4.0',
+    version='0.4.3',
     author='Mark Fink',
     description='2D irregular bin packaging and nesting for python',
     long_description=long_description,
