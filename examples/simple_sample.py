@@ -28,7 +28,7 @@ def add_shape2(n, items):
             Point(4392139, -24000000),
             Point(-9807860, -15000000),
             Point(-11750000, -13057900),
-            Point(-11750000, 13057900),
+            Point(-11750000, 13057900)
         ])
         items.append(item)
 

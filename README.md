@@ -13,9 +13,9 @@ The library is written in a way that it should be usable out of the box with a v
 A simple example may be the best way to demonstrate the usage of the library.
 
 ``` python
-from nest2d import Point, Box, Item, nest, SVGWriter
+from nest2D import Point, Box, Item, nest, SVGWriter
 
-def add_item1(n, items):
+def add_shape1(n, items):
     for i in range(n):
         item = Item([
             Point(-5000000, 8954050),
@@ -30,7 +30,7 @@ def add_item1(n, items):
         ])
         items.append(item)
 
-def add_item2(n, items):
+def add_shape2(n, items):
     for i in range(n):
         item = Item([
             Point(-11750000, 13057900),
@@ -47,10 +47,9 @@ def add_item2(n, items):
 
 def main():
     box = Box(150000000, 150000000)
-
     input = []
-    add_item1(23, input)
-    add_item2(15, input)
+    add_shape1(23, input)
+    add_shape2(15, input)
 
     pgrp = nest(input, box)
 
@@ -73,7 +72,7 @@ $ python examples/simple_sample.py
 
 ## Example output
 
-![Alt text](https://raw.githubusercontent.com/markfink/nest2d/master/docs/media/example_output.svg)
+![Alt text](https://raw.githubusercontent.com/markfink/nest2d/master/docs/media/example_output.svg?sanitize=true)
 
 
 ## License
