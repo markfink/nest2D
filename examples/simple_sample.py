@@ -1,4 +1,4 @@
-from nest2d import Point, Box, Item, nest, SVGWriter
+from nest2D import Point, Box, Item, nest, SVGWriter
 
 
 def add_shape1(n, items):

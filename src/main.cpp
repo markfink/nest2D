@@ -15,7 +15,7 @@ using Item = libnest2d::Item;
 using PackGroup = libnest2d::PackGroup;
 using SVGWriter = libnest2d::svg::SVGWriter<libnest2d::PolygonImpl>;
 
-PYBIND11_MODULE(nest2d, m)
+PYBIND11_MODULE(nest2D, m)
 {
     m.doc() = "2D irregular bin packaging and nesting for python";
 
@@ -87,7 +87,7 @@ PYBIND11_MODULE(nest2d, m)
         )
         ;
 
-    py::class_<SVGWriter>(m, "SVGWriter", "SVGWriter")
+    py::class_<SVGWriter>(m, "SVGWriter", "SVGWriter tools to write pack_group to SVG.")
         .def(py::init([]() {
             // custom constructor
             SVGWriter::Config conf;

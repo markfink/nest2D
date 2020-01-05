@@ -57,12 +57,12 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
 
 setup(
-    name='nest2d',
-    version='0.1.0',
+    name='nest2D',
+    version='0.4.0',
     author='Mark Fink',
     description='2D irregular bin packaging and nesting for python',
     long_description='',
-    ext_modules=[CMakeExtension('nest2d')],
+    ext_modules=[CMakeExtension('nest2D')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
 )

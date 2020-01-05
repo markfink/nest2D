@@ -1,7 +1,7 @@
-from nest2d import Point, Item
+from nest2D import Point, Item
 
 
-def main():
+def test_item():
     i1 = Item([
         Point(-5000000, 8954050),
         Point(5000000, 8954050),
@@ -14,12 +14,5 @@ def main():
         Point(-5000000, 8954050)
         ]
     )
-    print(f"repr: {repr(i1)}")
-    print(Item.__doc__)
-
-
-if __name__ == '__main__':
-    main()
-
-
-
+    assert repr(i1) == 'Item(area: 166258748205509, bin_id: -1, vertices: 9)'
+    assert Item.__doc__ == 'An item to be placed on a bin.'
