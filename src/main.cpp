@@ -65,16 +65,21 @@ PYBIND11_MODULE(nest2d, m)
 
     // The nest function takes two parameters input and box
     // see lib/libnest2d/include/libnest2d/libnest2d.hpp
-    m.def("nest", [](std::vector<Item> input, const Box& box) {
+    m.def("nest", [](std::vector<Item>& input, const Box& box) {
             size_t bins = libnest2d::nest(input, box);
 
             PackGroup pgrp(bins);
 
             for (Item &itm : input) {
                 if (itm.binId() >= 0) pgrp[size_t(itm.binId())].emplace_back(itm);
+                //py::print("bin_id: ", itm.binId());
+                //py::print("vertices: ", itm.vertexCount());
             }
 
-            return pgrp;
+            //return pgrp;
+            // convert c++ type to python using py::cast
+            py::object obj = py::cast(pgrp);
+            return obj;
         },
         py::arg("input"),
         py::arg("box"),

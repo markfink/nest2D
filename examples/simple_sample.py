@@ -36,15 +36,10 @@ def add_shape2(n, items):
 def main():
     box = Box(150000000, 150000000)
     input = []
-
-    #add_shape1(23, input)
-    #add_shape2(15, input)
-    add_shape1(1, input)
-    print(input)
-    print(len(input))
+    add_shape1(23, input)
+    add_shape2(15, input)
 
     pgrp = nest(input, box)
-    print(pgrp)
 
     sw = SVGWriter()
     sw.write_packgroup(pgrp)
