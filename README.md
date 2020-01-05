@@ -73,7 +73,7 @@ $ python examples/simple_sample.py
 
 ## Example output
 
-![Alt text](docs/media/example.svg)
+![Alt text](https://raw.githubusercontent.com/markfink/nest2d/master/docs/media/example_output.svg)
 
 
 ## License
