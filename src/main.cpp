@@ -21,8 +21,9 @@ PYBIND11_MODULE(nest2D, m)
 
     py::class_<Point>(m, "Point", "2D Point")
         .def(py::init<int, int>(),  py::arg("x"), py::arg("y"))
-        //.def_property_readonly("x", &Point::X) // TODO
-        //.def_property_readonly("y", &Point::Y)
+        //.def_property_readonly("x", &Point::X)
+        .def_property_readonly("x", [](const Point &p) { return p.X; })
+        .def_property_readonly("y", [](const Point &p) { return p.Y; })
         .def("__repr__",
              [](const Point &p) {
                  std::string r("Point(");
@@ -40,9 +41,12 @@ PYBIND11_MODULE(nest2D, m)
         );
 
     // see lib/libnest2d/include/libnest2d/geometry_traits.hpp
-    // TODO center
     py::class_<Box>(m, "Box", "2D Box point pair")
-        .def(py::init<int, int>())
+        //.def(py::init<int, int>())
+        // custom constructor to define box center
+        .def(py::init([](int x, int y) {
+            return std::unique_ptr<Box>(new Box(x, y, {x/2, y/2}));
+        }))
         ;
 
     // Item is a shape defined by points
@@ -77,7 +81,7 @@ PYBIND11_MODULE(nest2D, m)
             }
 
             //return pgrp;
-            // convert c++ type to python using py::cast
+            // we need to convert c++ type to python using py::cast
             py::object obj = py::cast(pgrp);
             return obj;
         },

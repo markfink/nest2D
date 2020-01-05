@@ -9,6 +9,16 @@ from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
 
+# Get the long description from the README file
+here = os.path.abspath(os.path.dirname(__file__))
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', format='md', to='rst')
+except(IOError, ImportError):
+    with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+        long_description = f.read()
+
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
         Extension.__init__(self, name, sources=[])
@@ -61,7 +71,7 @@ setup(
     version='0.4.0',
     author='Mark Fink',
     description='2D irregular bin packaging and nesting for python',
-    long_description='',
+    long_description=long_description,
     ext_modules=[CMakeExtension('nest2D')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
