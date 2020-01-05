@@ -84,18 +84,21 @@ PYBIND11_MODULE(nest2d, m)
 
     py::class_<SVGWriter>(m, "SVGWriter", "SVGWriter")
         .def(py::init([]() {
+            // custom constructor
             SVGWriter::Config conf;
             conf.mm_in_coord_units = libnest2d::mm();
-            return SVGWriter(conf);
+            return std::unique_ptr<SVGWriter>(new SVGWriter(conf));
         }))
-        //.def_property_readonly("x", &Point::X) // TODO
-        //.def_property_readonly("y", &Point::Y)
+        .def("write_packgroup", [](SVGWriter & sw, const PackGroup & pgrp) {
+            sw.setSize(Box(libnest2d::mm(250), libnest2d::mm(210)));  // TODO make own call
+            sw.writePackGroup(pgrp);
+        })
+        .def("save", [](SVGWriter & sw) {
+            sw.save("out");
+        })
         .def("__repr__",
-             [](const Point &p) {
+             [](const SVGWriter &sw) {
                  std::string r("SVGWriter(");
-                 //r += boost::lexical_cast<std::string>(p.X);
-                 //r += ", ";
-                 //r += boost::lexical_cast<std::string>(p.Y);
                  r += ")";
                  return r;
              }
