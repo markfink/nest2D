@@ -53,6 +53,9 @@ PYBIND11_MODULE(nest2D, m)
     // see lib/libnest2d/include/libnest2d/nester.hpp
     py::class_<Item>(m, "Item", "An item to be placed on a bin.")
         .def(py::init<std::vector<Point>>())
+        .def_property_readonly("area", [](const Item &i) { return i.area(); })
+        .def_property_readonly("translation", [](const Item &i) { return i.translation(); })
+        .def_property_readonly("rotation", [](const Item &i) { return (double) i.rotation(); })
         .def("__repr__",
              [](const Item &i) {
                  std::string r("Item(area: ");
