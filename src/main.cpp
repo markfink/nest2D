@@ -69,8 +69,8 @@ PYBIND11_MODULE(nest2D, m)
 
     // The nest function takes two parameters input and box
     // see lib/libnest2d/include/libnest2d/libnest2d.hpp
-    m.def("nest", [](std::vector<Item>& input, const Box& box) {
-            size_t bins = libnest2d::nest(input, box);
+    m.def("nest", [](std::vector<Item>& input, const Box& box, const long long int distance) {
+            size_t bins = libnest2d::nest(input, box, distance);
 
             PackGroup pgrp(bins);
 
@@ -87,7 +87,8 @@ PYBIND11_MODULE(nest2D, m)
         },
         py::arg("input"),
         py::arg("box"),
-        "Nest and pack the input items into the box bin."
+        py::arg("distance") = 0ll,
+        "Nest and pack the input items into the box bin with desired distance."
         )
         ;
 
